@@ -1,0 +1,32 @@
+{
+  "name": "no-arrowception",
+  "version": "1.0.0",
+  "description": "ESLint rule preventing arrow functions that implicitly create arrow functions",
+  "author": "Continuation Labs <contact@continuation.io> (http://continuation.io/)",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "belly-button && lab -v -t 100 -a code"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/continuationlabs/no-arrowception.git"
+  },
+  "keywords": [
+    "eslint",
+    "rule",
+    "arrow",
+    "function",
+    "arrow function"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/continuationlabs/no-arrowception/issues"
+  },
+  "homepage": "https://github.com/continuationlabs/no-arrowception",
+  "devDependencies": {
+    "belly-button": "1.x.x",
+    "code": "1.x.x",
+    "eslint": "1.x.x",
+    "lab": "6.x.x"
+  }
+}
