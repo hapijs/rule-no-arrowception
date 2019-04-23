@@ -1,6 +1,6 @@
 {
   "name": "@hapi/rule-no-arrowception",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "ESLint rule preventing arrow functions that implicitly create arrow functions",
   "main": "lib/index.js",
   "repository": "https://github.com/hapijs/rule-no-arrowception.git",
