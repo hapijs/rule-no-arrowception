@@ -1,48 +1,51 @@
 'use strict';
 
-var Code = require('code');
-var ESLint = require('eslint');
-var Lab = require('lab');
-var NoArrowception = require('../lib');
+const Code = require('@hapi/code');
+const ESLint = require('eslint');
+const Lab = require('@hapi/lab');
+const Rule = require('..');
 
-var lab = exports.lab = Lab.script();
-var describe = lab.describe;
-var it = lab.it;
-var RuleTester = ESLint.RuleTester;
+
+const internals = {};
+
+
+const { describe, it } = exports.lab = Lab.script();
+
 
 Code.settings.truncateMessages = false;
 
-describe('ESLint Rule', function () {
-  it('reports error when an arrow function implicitly creates another arrow function', function (done) {
-    var ruleTester = new RuleTester();
-    var valids = [
-      'var foo = () => 85;',
-      'var foo = () => { return 42; }',
-      'var foo = () => ({});',
-      'var foo = () => ({\nbar: 1});',
-      'var foo = () => [];',
-      'var foo = () => [\n1,\n2];',
-      'var foo = () => { return () => 85; };'
-    ].map(function (fn) {
-      return {
-        code: fn,
-        ecmaFeatures: {arrowFunctions: true}
-      };
-    });
-    var invalids = [
-      'var foo = () => () => 85;'
-    ].map(function (fn) {
-      return {
-        code: fn,
-        ecmaFeatures: {arrowFunctions: true},
-        errors: [{message: 'Arrow function implicitly creates arrow function.'}]
-      };
-    });
 
-    ruleTester.run(NoArrowception.esLintRuleName, NoArrowception, {
-      valid: valids,
-      invalid: invalids
+describe('ESLint Rule', () => {
+
+    it('reports error when an arrow function implicitly creates another arrow function', () => {
+
+        const ruleTester = new ESLint.RuleTester({ parserOptions: { ecmaVersion: 2019 } });
+        const valids = [
+            'const foo = () => 85;',
+            'const foo = () => { return 42; }',
+            'const foo = () => ({});',
+            'const foo = () => ({\nbar: 1});',
+            'const foo = () => [];',
+            'const foo = () => [\n1,\n2];',
+            'const foo = () => { return () => 85; };'
+        ].map((code) => {
+
+            return { code };
+        });
+
+        const invalids = [
+            'const foo = () => () => 85;'
+        ].map((code) => {
+
+            return {
+                code,
+                errors: [{ message: 'Arrow function implicitly creates arrow function.' }]
+            };
+        });
+
+        ruleTester.run(Rule.esLintRuleName, Rule, {
+            valid: valids,
+            invalid: invalids
+        });
     });
-    done();
-  });
 });
